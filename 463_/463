@@ -1,0 +1,59 @@
+"pt1hh_s" := "ust".PT1HH;
+"pt1h_s" := "ust".PT1H;
+"pt1L_s" := "ust".PT1L;
+"pt1LL_s" := "ust".PT1LL;
+"pt1ch_s" := "ust".PT1CHu;
+"pt1cL_s" := "ust".PT1CLu;
+"ust1_s" := "ust".ust1;
+"gist1_s" := "ust".gist;
+
+IF "ust1_11" <= 0 THEN
+    "ust1_11" := "ust".ust1;
+ELSE
+    "ust".ust1:= "ust1_11";
+END_IF;
+33
+IF "H1_r2gist" <= 0 THEN
+    "H1_r2gist" := "ust".gist;
+ELSE
+    "ust".gist := "H1_r2gist";
+END_IF;
+
+
+
+IF "pt1_CH" <= 0 THEN
+    "pt1_CH" := "ust".PT1CHu;
+ELSE
+    "ust".PT1CHu := "pt1_CH";
+END_IF;
+
+
+IF "pt1_CL" <= 0 THEN
+    "pt1_CL" := "ust".PT1CLu;
+ELSE
+    "ust".PT1CLu := "pt1_CL";
+END_IF;
+
+IF "PT1L" <= 0 THEN
+    "PT1L" :="ust".PT1L ;
+ELSE
+    "ust".PT1L := "PT1L";
+END_IF;
+
+IF "PT1LL" <= 0 THEN
+    "PT1LL":="ust".PT1LL;
+ELSE
+    "ust".PT1LL := "PT1LL";
+END_IF;
+
+IF "pt1HV" <= 0 THEN
+    "pt1HV" := "ust".PT1H;
+ELSE
+    "ust".PT1H := "pt1HV";
+END_IF;
+
+IF "pt1HHV" <= 0 THEN
+    "pt1HHV" := "ust".PT1HH;
+ELSE
+    "ust".PT1HH := "pt1HHV";
+END_IF;
