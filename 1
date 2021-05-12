@@ -1,0 +1,468 @@
+Param := #AIinput;
+(*IF #Simul = 1 THEN
+    #Param:= #SimPar;
+ELSE
+    
+END_IF;*)
+IF #AIEnbErr = 1 THEN
+    IF ((#Param >= 27649) AND (#Param <= 32511)) OR ((#Param >= -4864) AND (#Param <= -1400)) THEN
+        #ErrorPer := 1;
+        #ErrorOW := 0;
+        #AIActLLL := 0;
+        #AIWstatus := 0;
+        #Norm := 0;
+        #AIActLL := 0;
+        #AIActL := 0;
+        #AIActCL := 0;
+        #AIActCH := 0;
+        #AIActH := 0;
+        #AIActHH := 0;
+    ELSE
+        #ErrorPer := 0;
+    END_IF;
+    IF #Param <= -4865 OR #Param >= 32512 THEN
+        #ErrorPer := 0;
+        #ErrorOW := 1;
+        #AIActLLL := 0;
+        #AIWstatus := 0;
+        #Norm := 0;
+        #AIActLL := 0;
+        #AIActL := 0;
+        #AIActCL := 0;
+        #AIActCH := 0;
+        #AIActH := 0;
+        #AIActHH := 0;
+    ELSE
+        #ErrorOW := 0;
+    END_IF;
+ELSE
+    #ErrorOW := 0;
+    #ErrorPer := 0;
+END_IF;
+#NormValue := NORM_X(MIN := 0, VALUE := #Param, MAX := 27648);
+IF #Simul THEN
+    #AIoutput := #SimPar;
+END_IF;
+IF NOT #Simul THEN
+    #AIoutput := SCALE_X(MIN := #AIScL, VALUE := #NormValue, MAX := #AIScH);
+END_IF;
+    IF (#AIEnbLLL = 1) THEN
+        IF (#AIoutput <= #AILimLLL) AND (#AIoutput >= #AIScL) THEN
+            #AIActLLL := 1;
+            #AIWstatus := 5;
+            #Norm := 0;
+            #AIActLL := 0;
+            #AIActL := 0;
+            #AIActCL := 0;
+            #AIActCH := 0;
+            #AIActH := 0;
+            #AIActHH := 0;
+            #ErrorOW := 0;
+            #ErrorPer := 0;
+        END_IF;
+    ELSE
+        #AIActLLL := 0;
+    END_IF;
+    IF (#AIEnbLL = 1) THEN
+        IF (#AIEnbLLL = 1) THEN
+            IF (#AIoutput > #AILimLLL) AND (#AIoutput <= #AILimLL) THEN
+                #AIActLLL := 0;
+                #AIActLL := 1;
+                #AIWstatus := 4;
+                #Norm := 0;
+                #AIActL := 0;
+                #AIActCL := 0;
+                #AIActCH := 0;
+                #AIActH := 0;
+                #AIActHH := 0;
+                #ErrorOW := 0;
+                #ErrorPer := 0;
+            END_IF;
+        ELSIF (#AIoutput <= #AILimLL) AND (#AIoutput >= #AIScL) THEN
+            #AIActLLL := 0;
+            #AIWstatus := 4;
+            #Norm := 0;
+            #AIActLL := 1;
+            #AIActL := 0;
+            #AIActCL := 0;
+            #AIActCH := 0;
+            #AIActH := 0;
+            #AIActHH := 0;
+            #ErrorOW := 0;
+            #ErrorPer := 0;
+        END_IF;
+    ELSE
+        #AIActLL := 0;
+    END_IF;
+    IF (#AIEnbL = 1) THEN
+        IF (#AIEnbLL = 1) THEN
+            IF (#AIoutput > #AILimLL) AND (#AIoutput <= #AILimL) THEN
+                #AIActLLL := 0;
+                #AIActLL := 0;
+                #AIActL := 1;
+                #AIWstatus := 3;
+                #Norm := 0;
+                #AIActCL := 0;
+                #AIActCH := 0;
+                #AIActH := 0;
+                #AIActHH := 0;
+                #ErrorOW := 0;
+                #ErrorPer := 0;
+            END_IF;
+        ELSIF (#AIoutput <= #AILimL) AND (#AIoutput >= #AIScL) THEN
+            #AIActLLL := 0;
+            #AIActLL := 0;
+            #AIActL := 1;
+            #AIWstatus := 3;
+            #Norm := 0;
+            #AIActCL := 0;
+            #AIActCH := 0;
+            #AIActH := 0;
+            #AIActHH := 0;
+            #ErrorOW := 0;
+            #ErrorPer := 0;
+        END_IF;
+    ELSE
+        #AIActL := 0;
+    END_IF;
+    IF (#AIEnbC = 1) THEN
+        IF (#AIEnbL = 1) THEN
+            IF (#AIoutput > #AILimL) AND (#AIoutput <= (#AILimC - #Gist)) THEN
+                #AIActLLL := 0;
+                #AIActLL := 0;
+                #AIActL := 0;
+                #AIWstatus := 0;
+                #Norm := 1;
+                #AIActCL := 1;
+                #AIActCH := 0;
+                #AIActH := 0;
+                #AIActHH := 0;
+                #ErrorOW := 0;
+                #ErrorPer := 0;
+            END_IF;
+        ELSIF (#AIEnbLL = 1) THEN
+            IF (#AIoutput > #AILimLL) AND (#AIoutput <= (#AILimC - #Gist)) THEN
+                #AIActLLL := 0;
+                #AIActLL := 0;
+                #AIActL := 0;
+
+Эдуард Хакимов, [12.05.21 11:20]
+#AIWstatus := 0;
+                #Norm := 1;
+                #AIActCL := 1;
+                #AIActCH := 0;
+                #AIActH := 0;
+                #AIActHH := 0;
+                #ErrorOW := 0;
+                #ErrorPer := 0;
+            END_IF;
+        ELSIF (#AIEnbLLL = 1) THEN
+            IF (#AIoutput > #AILimLLL) AND (#AIoutput <= (#AILimC - #Gist)) THEN
+                #AIActLLL := 0;
+                #AIActLL := 0;
+                #AIActL := 0;
+                #AIActCL := 1;
+                #AIWstatus := 0;
+                #Norm := 1;
+                #AIActCH := 0;
+                #AIActH := 0;
+                #AIActHH := 0;
+                #ErrorOW := 0;
+                #ErrorPer := 0;
+            END_IF;
+        ELSIF (#AIoutput <= (#AILimC - #Gist)) AND (#AIoutput >= #AIScL) THEN
+            #AIActLLL := 0;
+            #AIActLL := 0;
+            #AIActL := 0;
+            #AIActCL := 1;
+            #AIWstatus := 0;
+            #Norm := 1;
+            #AIActCH := 0;
+            #AIActH := 0;
+            #AIActHH := 0;
+            #ErrorOW := 0;
+            #ErrorPer := 0;
+        END_IF;
+    ELSE
+        #AIActCL := 0;
+    END_IF;
+    IF (#AIEnbC = 1) THEN
+        IF (#AIEnbH = 1) THEN
+            IF (#AIoutput < #AILimH) AND (#AIoutput >= (#AILimC + #Gist)) THEN
+                #AIActLLL := 0;
+                #AIActLL := 0;
+                #AIActL := 0;
+                #AIActCL := 0;
+                #AIActCH := 1;
+                #AIWstatus := 0;
+                #Norm := 1;
+                #AIActH := 0;
+                #AIActHH := 0;
+                #ErrorOW := 0;
+                #ErrorPer := 0;
+            END_IF;
+        ELSIF (#AIEnbHH = 1) THEN
+            IF (#AIoutput < #AILimHH) AND (#AIoutput >= (#AILimC + #Gist)) THEN
+                #AIActLLL := 0;
+                #AIActLL := 0;
+                #AIActL := 0;
+                #AIActCL := 0;
+                #AIActCH := 1;
+                #AIWstatus := 0;
+                #Norm := 1;
+                #AIActH := 0;
+                #AIActHH := 0;
+                #ErrorOW := 0;
+                #ErrorPer := 0;
+            END_IF;
+        ELSIF (#AIoutput >= (#AILimC + #Gist)) AND (#AIoutput <= #AIScH) THEN
+            #AIActLLL := 0;
+            #AIActLL := 0;
+            #AIActL := 0;
+            #AIActCL := 0;
+            #AIActCH := 1;
+            #AIWstatus := 0;
+            #Norm := 1;
+            #AIActH := 0;
+            #AIActHH := 0;
+            #ErrorOW := 0;
+            #ErrorPer := 0;
+        END_IF;
+    ELSE
+        #AIActCH := 0;
+    END_IF;
+    IF #AIEnbC = 1 AND (#AIoutput < (#AILimC + #Gist)) AND (#AIoutput > (#AILimC - #Gist)) THEN
+        #AIActLLL := 0;
+        #AIActLL := 0;
+        #AIActL := 0;
+        #AIActCL := 0;
+        #AIActCH := 0;
+        #AIWstatus := 0;
+        #Norm := 1;
+        #AIActH := 0;
+        #AIActHH := 0;
+        #ErrorOW := 0;
+        #ErrorPer := 0;
+    END_IF;
+    
+    IF (#AIEnbC = 0) THEN
+        IF (#AIEnbH = 1) THEN
+            IF (#AIEnbL = 1) THEN
+                IF (#AIoutput < #AILimH) AND (#AIoutput > #AILimL) THEN
+                    #AIActLLL := 0;
+                    #AIActLL := 0;
+                    #AIActL := 0;
+                    #AIActCL := 0;
+                    #AIWstatus := 0;
+                    #Norm := 1;
+                    #AIActCH := 0;
+                    #AIActH := 0;
+                    #AIActHH := 0;
+                    #ErrorOW := 0;
+                    #ErrorPer := 0;
+                END_IF;
+            ELSIF (#AIEnbLL = 1) THEN
+                IF (#AIoutput < #AILimH) AND (#AIoutput > #AILimLL) THEN
+                    #AIActLLL := 0;
+                    #AIActLL := 0;
+                    #AIActL := 0;
+                    #AIActCL := 0;
+                    #AIWstatus := 0;
+                    #Norm := 1;
+                    #AIActCH := 0;
+                    #AIActH := 0;
+                    #AIActHH := 0;
+                    #ErrorOW := 0;
+                    #ErrorPer := 0;
+                END_IF;
+            ELSIF (#AIEnbLLL = 1) THEN
+
+Эдуард Хакимов, [12.05.21 11:20]
+IF (#AIoutput < #AILimH) AND (#AIoutput > #AILimLLL) THEN
+                    #AIActLLL := 0;
+                    #AIActLL := 0;
+                    #AIActL := 0;
+                    #AIWstatus := 0;
+                    #Norm := 1;
+                    #AIActCL := 0;
+                    #AIActCH := 0;
+                    #AIActH := 0;
+                    #AIActHH := 0;
+                    #ErrorOW := 0;
+                    #ErrorPer := 0;
+                END_IF;
+            ELSIF (#AIoutput < #AILimH) AND (#AIoutput >= #AIScL) THEN
+                #AIActLLL := 0;
+                #AIActLL := 0;
+                #AIActL := 0;
+                #AIActCL := 0;
+                #Norm := 1;
+                #AIWstatus := 0;
+                #AIActCH := 0;
+                #AIActH := 0;
+                #AIActHH := 0;
+                #ErrorOW := 0;
+                #ErrorPer := 0;
+            END_IF;
+        ELSIF (#AIEnbHH = 1) THEN
+            IF (#AIEnbL = 1) THEN
+                IF (#AIoutput < #AILimHH) AND (#AIoutput > #AILimL) THEN
+                    #AIActLLL := 0;
+                    #AIActLL := 0;
+                    #AIActL := 0;
+                    #AIActCL := 0;
+                    #AIWstatus := 0;
+                    #Norm := 1;
+                    #AIActCH := 0;
+                    #AIActH := 0;
+                    #AIActHH := 0;
+                    #ErrorOW := 0;
+                    #ErrorPer := 0;
+                END_IF;
+            ELSIF (#AIEnbLL = 1) THEN
+                IF (#AIoutput < #AILimHH) AND (#AIoutput > #AILimLL) THEN
+                    #AIActLLL := 0;
+                    #AIActLL := 0;
+                    #AIActL := 0;
+                    #AIWstatus := 0;
+                    #Norm := 1;
+                    #AIActCL := 0;
+                    #AIActCH := 0;
+                    #AIActH := 0;
+                    #AIActHH := 0;
+                    #ErrorOW := 0;
+                    #ErrorPer := 0;
+                END_IF;
+            ELSIF (#AIEnbLLL = 1) THEN
+                IF (#AIoutput < #AILimHH) AND (#AIoutput > #AILimLLL) THEN
+                    #AIActLLL := 0;
+                    #AIActLL := 0;
+                    #AIActL := 0;
+                    #AIActCL := 0;
+                    #AIWstatus := 0;
+                    #Norm := 1;
+                    #AIActCH := 0;
+                    #AIActH := 0;
+                    #AIActHH := 0;
+                    #ErrorOW := 0;
+                    #ErrorPer := 0;
+                END_IF;
+            ELSIF (#AIoutput < #AILimHH) AND (#AIoutput >= #AIScL) THEN
+                #AIActLLL := 0;
+                #AIActLL := 0;
+                #AIActL := 0;
+                #AIActCL := 0;
+                #AIWstatus := 0;
+                #Norm := 1;
+                #AIActCH := 0;
+                #AIActH := 0;
+                #AIActHH := 0;
+                #ErrorOW := 0;
+                #ErrorPer := 0;
+            END_IF;
+        ELSIF (#AIEnbL = 1) THEN
+            IF (#AIoutput > #AILimL) AND (#AIoutput <= #AIScH) THEN
+                #AIActLLL := 0;
+                #AIActLL := 0;
+                #AIActL := 0;
+                #AIActCL := 0;
+                #AIActCH := 0;
+                #AIWstatus := 0;
+                #Norm := 1;
+                #AIActH := 0;
+                #AIActHH := 0;
+                #ErrorOW := 0;
+                #ErrorPer := 0;
+            END_IF;
+        ELSIF (#AIEnbLL = 1) THEN
+            IF (#AIoutput > #AILimLL) AND (#AIoutput <= #AIScH) THEN
+                #AIActLLL := 0;
+                #AIActLL := 0;
+                #AIActL := 0;
+                #AIActCL := 0;
+                #AIActCH := 0;
+                #AIWstatus := 0;
+                #Norm := 1;
+                #AIActH := 0;
+                #AIActHH := 0;
+                #ErrorOW := 0;
+                #ErrorPer := 0;
+            END_IF;
+        ELSIF (#AIEnbLLL = 1) THEN
+            IF (#AIoutput > #AILimLLL) AND (#AIoutput <= #AIScH) THEN
+                #AIActLLL := 0;
+                #AIActLL := 0;
+                #AIActL := 0;
+                #AIWstatus := 0;
+
+Эдуард Хакимов, [12.05.21 11:20]
+#Norm := 1;
+                #AIActCL := 0;
+                #AIActCH := 0;
+                #AIActH := 0;
+                #AIActHH := 0;
+                #ErrorOW := 0;
+                #ErrorPer := 0;
+            END_IF;
+        ELSIF (#AIoutput >= #AIScL) AND (#AIoutput <= #AIScH) THEN 
+            #AIActLLL := 0;
+            #AIActLL := 0;
+            #AIActL := 0;
+            #AIWstatus := 0;
+            #AIActCL := 0;
+            #Norm := 1;
+            #AIActCH := 0;
+            #AIActH := 0;
+            #AIActHH := 0;
+            #ErrorOW := 0;
+            #ErrorPer := 0;
+        END_IF;
+    END_IF;
+    IF (#AIEnbH = 1) THEN
+        IF (#AIEnbHH = 1) THEN
+            IF (#AIoutput < #AILimHH) AND (#AIoutput >= #AILimH) THEN
+                #AIActLLL := 0;
+                #AIActLL := 0;
+                #AIActL := 0;
+                #AIActCL := 0;
+                #AIActCH := 0;
+                #AIActH := 1;
+                #AIWstatus := 2;
+                #Norm := 0;
+                #AIActHH := 0;
+                #ErrorOW := 0;
+                #ErrorPer := 0;
+            END_IF;
+        ELSIF (#AIoutput >= #AILimH) AND (#AIoutput <= #AIScH) THEN
+            #AIActLLL := 0;
+            #AIActLL := 0;
+            #AIActL := 0;
+            #AIActCL := 0;
+            #AIActCH := 0;
+            #AIActH := 1;
+            #AIWstatus := 2;
+            #Norm := 0;
+            #AIActHH := 0;
+            #ErrorOW := 0;
+            #ErrorPer := 0;
+        END_IF;
+    ELSE
+        #AIActH := 0;
+    END_IF;
+    IF (#AIEnbHH = 1) THEN
+        IF (#AIoutput >= #AILimHH) AND (#AIoutput <= #AIScH) THEN
+            #AIActLLL := 0;
+            #AIActLL := 0;
+            #AIActL := 0;
+            #AIActCL := 0;
+            #AIActCH := 0;
+            #AIActH := 0;
+            #AIActHH := 1;
+            #AIWstatus := 1;
+            #Norm := 0;
+            #ErrorOW := 0;
+            #ErrorPer := 0;
+        END_IF;
+    ELSE
+        #AIActHH := 0;
+    END_IF;
